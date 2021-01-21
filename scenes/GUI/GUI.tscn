@@ -1,13 +1,27 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/font/Comfortaa-Bold.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/font/MainFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/GUI/button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/GUI/GUI.gd" type="Script" id=3]
+[ext_resource path="res://scenes/GUI/games_panel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/GUI/shop_panel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/GUI/breeding_panel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GUI/hatchery_panel.tscn" type="PackedScene" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color( 0, 0, 0, 1 )
 
 [node name="GUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -1.24915
 margin_bottom = -1.24915
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -87,6 +101,29 @@ margin_bottom = 48.0
 margin_left = 33.0
 margin_right = 112.0
 text = "Hatchery"
+
+[node name="Panel" type="Panel" parent="Node"]
+visible = false
+margin_left = 128.0
+margin_top = 64.0
+margin_right = 896.0
+margin_bottom = 512.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GamesPanel" parent="Node/Panel" instance=ExtResource( 4 )]
+visible = false
+
+[node name="ShopPanel" parent="Node/Panel" instance=ExtResource( 5 )]
+visible = false
+
+[node name="BreedingPanel" parent="Node/Panel" instance=ExtResource( 6 )]
+visible = false
+
+[node name="HatcheryPanel" parent="Node/Panel" instance=ExtResource( 7 )]
+visible = false
 
 [editable path="Node/Games"]
 

@@ -9,13 +9,13 @@ func _ready():
 	$GUI/Node/Hatchery.connect("pressed", self, "_on_HatcheryBtn_pressed")
 
 func _on_GamesBtn_pressed():
-	print("hello world- G")
+	$GUI.panel_button_pressed("games")
 
 func _on_ShopBtn_pressed():
-	print("hello world- S")
+	$GUI.panel_button_pressed("shop")
 
 func _on_BreedingBtn_pressed():
-	print("hello world- B")
+	$GUI.panel_button_pressed("breeding")
 
 func _on_HatcheryBtn_pressed():
-	print("hello world- H")
+	$GUI.panel_button_pressed("hatchery")
