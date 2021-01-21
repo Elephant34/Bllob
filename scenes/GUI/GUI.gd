@@ -7,6 +7,12 @@ func _ready():
 	# Hide all panel elements just in case I forget to hide them manually
 	hide_panel(true)
 
+func _input(event):
+	# Close the panel if esc is pressed
+	if event.is_action_pressed("ui_cancel"):
+		hide_panel(true)
+		last_pressed = null
+
 func panel_button_pressed(button):
 	"""
 	Called when a button which should trigger the panel is pressed
