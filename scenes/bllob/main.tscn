@@ -13,6 +13,7 @@ margin_left = -2850.0
 margin_top = -189.0
 margin_right = 3970.0
 margin_bottom = 811.0
+mouse_filter = 2
 texture = ExtResource( 3 )
 stretch_mode = 2
 __meta__ = {

@@ -5,7 +5,7 @@ extends Node2D
 var game_data
 
 var coins
-var time
+var raw_time
 
 func _ready():
 	# Link to buttons to their event
@@ -14,9 +14,29 @@ func _ready():
 	$GUI/Node/Breeding.connect("pressed", self, "_on_BreedingBtn_pressed")
 	$GUI/Node/Hatchery.connect("pressed", self, "_on_HatcheryBtn_pressed")
 	
+	
+	# Load the game state
 	game_data = load_save()
 	coins = game_data["coins"]
-	time = game_data["time"]
+	raw_time = game_data["raw_time"]
+	
+	update_coin_count()
+
+func _process(dt):
+	# Adds on to the raw game time
+	raw_time += dt
+	
+	# Displays the game time
+	# TODO format the time into a human friendly counter
+	$GUI/Node/Time.text = "Time: %.2f" % raw_time
+
+
+func _notification(what):
+	# Runs when the game is quit
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		make_save()
+		get_tree().quit() # default behavior
+
 
 func _on_GamesBtn_pressed():
 	$GUI.panel_button_pressed("games")
@@ -29,6 +49,12 @@ func _on_BreedingBtn_pressed():
 
 func _on_HatcheryBtn_pressed():
 	$GUI.panel_button_pressed("hatchery")
+
+
+func update_coin_count():
+	# Updates the label showing coins
+	$GUI/Node/Coins.text = "Coins: %s" % coins
+
 
 func load_save():
 	var game_save = File.new()
@@ -48,7 +74,7 @@ func load_save():
 func make_save():
 	game_data = {
 		"coins": coins,
-		"time": time
+		"raw_time": raw_time
 	}
 	
 	var game_save = File.new()
@@ -61,4 +87,8 @@ func make_save():
 
 func new_game():
 	coins = 0
-	time = 0.0
+	raw_time = 0.0
+
+
+func bllob_selected(bllob_id):
+	print("Bllob selected %s" % bllob_id)

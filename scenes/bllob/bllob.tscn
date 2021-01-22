@@ -1,20 +1,33 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/textures/bllob/baby_bllob3.png" type="Texture" id=1]
 [ext_resource path="res://assets/textures/bllob/baby_bllob1.png" type="Texture" id=2]
-[ext_resource path="res://assets/textures/bllob/baby_bllob2.png" type="Texture" id=3]
+[ext_resource path="res://scenes/bllob/bllob.gd" type="Script" id=3]
 [ext_resource path="res://assets/textures/bllob/baby_bllob.png" type="Texture" id=4]
+[ext_resource path="res://assets/textures/bllob/baby_bllob2.png" type="Texture" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "baby1",
 "speed": 3.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 49.7739, 32.0251 )
 
 [node name="Bllob" type="AnimatedSprite"]
 frames = SubResource( 1 )
 animation = "baby1"
 frame = 1
 playing = true
+script = ExtResource( 3 )
+
+[node name="baby" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="baby"]
+position = Vector2( 0, -0.0234127 )
+shape = SubResource( 2 )
+[connection signal="mouse_entered" from="baby" to="." method="_on_baby_mouse_entered"]
+[connection signal="mouse_exited" from="baby" to="." method="_on_baby_mouse_exited"]
