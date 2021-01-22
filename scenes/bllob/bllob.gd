@@ -2,12 +2,14 @@ extends AnimatedSprite
 
 
 var id
+var age
 
 var mouse_entered=false
 
 # Temporary function to set variables until I link it to main
-func _ready():
-	id = 0
+#func _ready():
+#	id = 0
+#	age = 0
 
 
 func _on_baby_mouse_entered():

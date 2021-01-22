@@ -4,8 +4,18 @@ extends Node2D
 # Contains all saved game data
 var game_data
 
+# Game specific variables
 var coins
 var raw_time
+
+# Stores all data about bllobs
+var bllob_data
+var bllob_scene = preload("res://scenes/bllob/bllob.tscn")
+
+
+# ===========================
+# Overwridden game functions
+# ===========================
 
 func _ready():
 	# Link to buttons to their event
@@ -17,8 +27,24 @@ func _ready():
 	
 	# Load the game state
 	game_data = load_save()
+	
 	coins = game_data["coins"]
 	raw_time = game_data["raw_time"]
+	bllob_data = game_data["bllob_data"]
+	
+	for bllob_id in bllob_data:
+		# Instances all the bllobs
+		var bllob = bllob_scene.instance()
+		
+		add_child(bllob)
+		
+		# Sets the bllob position
+		bllob.position.x = bllob_data[bllob_id]["position"][0]
+		bllob.position.y = bllob_data[bllob_id]["position"][1]
+		
+		# Sets the bllobs internal variables
+		bllob.id = bllob_id
+		bllob.age = bllob_data[bllob_id]["age"]
 	
 	update_coin_count()
 
@@ -38,6 +64,10 @@ func _notification(what):
 		get_tree().quit() # default behavior
 
 
+# =====================
+# GUI button functions
+# ======================
+
 func _on_GamesBtn_pressed():
 	$GUI.panel_button_pressed("games")
 
@@ -55,6 +85,14 @@ func update_coin_count():
 	# Updates the label showing coins
 	$GUI/Node/Coins.text = "Coins: %s" % coins
 
+
+# ================
+# Save Functions
+# ================
+
+func _on_AutoSave_timeout():
+	# Autosaves the game based off timer
+	make_save()
 
 func load_save():
 	var game_save = File.new()
@@ -74,7 +112,8 @@ func load_save():
 func make_save():
 	game_data = {
 		"coins": coins,
-		"raw_time": raw_time
+		"raw_time": raw_time,
+		"bllob_data": bllob_data
 	}
 	
 	var game_save = File.new()
@@ -85,10 +124,17 @@ func make_save():
 	
 	game_save.close()
 
+
 func new_game():
 	coins = 0
 	raw_time = 0.0
-
+	
+	bllob_data = {
+		"0": {
+			"age": 0,
+			"position": [148, 424]
+		}
+	}
 
 func bllob_selected(bllob_id):
 	print("Bllob selected %s" % bllob_id)
