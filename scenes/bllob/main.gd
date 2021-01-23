@@ -36,15 +36,10 @@ func _ready():
 		# Instances all the bllobs
 		var bllob = bllob_scene.instance()
 		
+		# Addes the bllobs and set the varaibles
 		add_child(bllob)
-		
-		# Sets the bllob position
-		bllob.position.x = bllob_data[bllob_id]["position"][0]
-		bllob.position.y = bllob_data[bllob_id]["position"][1]
-		
-		# Sets the bllobs internal variables
 		bllob.id = bllob_id
-		bllob.age = bllob_data[bllob_id]["age"]
+		bllob.add_data(bllob_data)
 	
 	update_coin_count()
 
@@ -69,21 +64,30 @@ func _notification(what):
 # ======================
 
 func _on_GamesBtn_pressed():
-	$GUI.panel_button_pressed("games")
+	$GUI.menu_panel_button_pressed("games")
 
 func _on_ShopBtn_pressed():
-	$GUI.panel_button_pressed("shop")
+	$GUI.menu_panel_button_pressed("shop")
 
 func _on_BreedingBtn_pressed():
-	$GUI.panel_button_pressed("breeding")
+	$GUI.menu_panel_button_pressed("breeding")
 
 func _on_HatcheryBtn_pressed():
-	$GUI.panel_button_pressed("hatchery")
+	$GUI.menu_panel_button_pressed("hatchery")
 
 
 func update_coin_count():
-	# Updates the label showing coins
+	"""
+	Updates the label showing coin count
+	"""
 	$GUI/Node/Coins.text = "Coins: %s" % coins
+
+
+func bllob_selected(bllob_id):
+	"""
+	Brings up the bllob gui panel displaying it's data
+	"""
+	print("Bllob selected %s" % bllob_id)
 
 
 # ================
@@ -132,9 +136,12 @@ func new_game():
 	bllob_data = {
 		"0": {
 			"age": 0,
-			"position": [148, 424]
+			"position": [148, 424],
+			"health": 100,
+			"hunger": 100,
+			"happiness": 100,
+			"strength": 10,
+			"agility":10,
+			"staminer":10,
 		}
 	}
-
-func bllob_selected(bllob_id):
-	print("Bllob selected %s" % bllob_id)

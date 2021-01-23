@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/font/MainFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/GUI/button.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/GUI/shop_panel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/GUI/breeding_panel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/GUI/hatchery_panel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/font/TitleFont.tres" type="DynamicFont" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -115,7 +116,7 @@ margin_right = 116.0
 margin_bottom = 30.0
 text = "Hatchery"
 
-[node name="Panel" type="Panel" parent="Node"]
+[node name="MenuPanel" type="Panel" parent="Node"]
 visible = false
 margin_left = 128.0
 margin_top = 64.0
@@ -126,17 +127,135 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GamesPanel" parent="Node/Panel" instance=ExtResource( 4 )]
+[node name="GamesPanel" parent="Node/MenuPanel" instance=ExtResource( 4 )]
 visible = false
 
-[node name="ShopPanel" parent="Node/Panel" instance=ExtResource( 5 )]
+[node name="ShopPanel" parent="Node/MenuPanel" instance=ExtResource( 5 )]
 visible = false
 
-[node name="BreedingPanel" parent="Node/Panel" instance=ExtResource( 6 )]
+[node name="BreedingPanel" parent="Node/MenuPanel" instance=ExtResource( 6 )]
 visible = false
 
-[node name="HatcheryPanel" parent="Node/Panel" instance=ExtResource( 7 )]
+[node name="HatcheryPanel" parent="Node/MenuPanel" instance=ExtResource( 7 )]
 visible = false
+
+[node name="BllobPanel" type="Panel" parent="Node"]
+visible = false
+margin_left = 128.0
+margin_top = 64.0
+margin_right = 896.0
+margin_bottom = 512.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Node/BllobPanel"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 167.0
+margin_bottom = 89.0
+custom_fonts/font = ExtResource( 8 )
+text = "Bllob"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="Label" parent="Node/BllobPanel"]
+margin_left = 72.0
+margin_top = 96.0
+margin_right = 171.0
+margin_bottom = 117.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Health:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hunger" type="Label" parent="Node/BllobPanel"]
+margin_left = 208.0
+margin_top = 96.0
+margin_right = 316.0
+margin_bottom = 117.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Hunger:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Happiness" type="Label" parent="Node/BllobPanel"]
+margin_left = 352.0
+margin_top = 96.0
+margin_right = 490.0
+margin_bottom = 117.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Happiness:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Age" type="Label" parent="Node/BllobPanel"]
+margin_left = 72.0
+margin_top = 144.0
+margin_right = 117.0
+margin_bottom = 165.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Age: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LifeStage" type="Label" parent="Node/BllobPanel"]
+margin_left = 72.0
+margin_top = 168.0
+margin_right = 175.0
+margin_bottom = 189.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Life Stage: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Strength" type="Label" parent="Node/BllobPanel"]
+margin_left = 72.0
+margin_top = 208.0
+margin_right = 158.0
+margin_bottom = 229.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Strength:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Agility" type="Label" parent="Node/BllobPanel"]
+margin_left = 72.0
+margin_top = 256.0
+margin_right = 165.0
+margin_bottom = 277.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Agility:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Staminer" type="Label" parent="Node/BllobPanel"]
+margin_left = 72.0
+margin_top = 232.0
+margin_right = 161.0
+margin_bottom = 253.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Staminer:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [editable path="Node/Games"]
 

@@ -10,7 +10,7 @@
 animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "baby1",
+"name": "adult",
 "speed": 3.0
 } ]
 
@@ -19,9 +19,7 @@ extents = Vector2( 49.7739, 32.0251 )
 
 [node name="Bllob" type="AnimatedSprite"]
 frames = SubResource( 1 )
-animation = "baby1"
-frame = 1
-playing = true
+animation = "adult"
 script = ExtResource( 3 )
 
 [node name="baby" type="Area2D" parent="."]
