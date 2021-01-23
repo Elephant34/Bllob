@@ -10,6 +10,7 @@ var raw_time
 
 # Stores all data about bllobs
 var bllob_data
+var bllob_dict = {}
 var bllob_scene = preload("res://scenes/bllob/bllob.tscn")
 
 
@@ -32,17 +33,19 @@ func _ready():
 	raw_time = game_data["raw_time"]
 	bllob_data = game_data["bllob_data"]
 	
+	# Adds all saved bllobs
 	for bllob_id in bllob_data:
-		# Instances all the bllobs
 		var bllob = bllob_scene.instance()
 		
 		# Addes the bllobs and set the varaibles
 		add_child(bllob)
 
-		bllob.id = bllob_id
-		bllob.position.x = bllob_data[bllob_id]["position"][0]
-		bllob.position.y = bllob_data[bllob_id]["position"][1]
-		bllob.set_age(bllob_data[bllob_id]["age"])
+		bllob_dict[bllob_id] = bllob
+
+		bllob_dict[bllob_id].id = bllob_id
+		bllob_dict[bllob_id].position.x = bllob_data[bllob_id]["position"][0]
+		bllob_dict[bllob_id].position.y = bllob_data[bllob_id]["position"][1]
+		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
 	
 	update_coin_count()
 
@@ -148,3 +151,17 @@ func new_game():
 			"staminer":10,
 		}
 	}
+
+# ===============
+# Bllob methods
+# ===============
+
+func _on_Aging_timeout():
+	"""
+	Adds 1 to all bllob ages
+	"""
+
+	for bllob_id in bllob_data:
+		bllob_data[bllob_id]["age"] += 1
+
+		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])

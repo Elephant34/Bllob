@@ -11,6 +11,10 @@ script = ExtResource( 2 )
 wait_time = 30.0
 autostart = true
 
+[node name="Aging" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
 [node name="Background" type="TextureRect" parent="."]
 margin_left = -2850.0
 margin_top = -189.0
@@ -25,3 +29,4 @@ __meta__ = {
 
 [node name="GUI" parent="." instance=ExtResource( 1 )]
 [connection signal="timeout" from="AutoSave" to="." method="_on_AutoSave_timeout"]
+[connection signal="timeout" from="Aging" to="." method="_on_Aging_timeout"]
