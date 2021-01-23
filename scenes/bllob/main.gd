@@ -19,13 +19,6 @@ var bllob_scene = preload("res://scenes/bllob/bllob.tscn")
 # ===========================
 
 func _ready():
-	# Link to buttons to their event
-	$GUI/Node/Games.connect("pressed", self, "_on_GamesBtn_pressed")
-	$GUI/Node/Shop.connect("pressed", self, "_on_ShopBtn_pressed")
-	$GUI/Node/Breeding.connect("pressed", self, "_on_BreedingBtn_pressed")
-	$GUI/Node/Hatchery.connect("pressed", self, "_on_HatcheryBtn_pressed")
-	
-	
 	# Load the game state
 	game_data = load_save()
 	
@@ -63,23 +56,6 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		make_save()
 		get_tree().quit() # default behavior
-
-
-# =====================
-# GUI button functions
-# ======================
-
-func _on_GamesBtn_pressed():
-	$GUI.menu_panel_button_pressed("games")
-
-func _on_ShopBtn_pressed():
-	$GUI.menu_panel_button_pressed("shop")
-
-func _on_BreedingBtn_pressed():
-	$GUI.menu_panel_button_pressed("breeding")
-
-func _on_HatcheryBtn_pressed():
-	$GUI.menu_panel_button_pressed("hatchery")
 
 
 func update_coin_count():
@@ -139,18 +115,7 @@ func new_game():
 	coins = 0
 	raw_time = 0.0
 	
-	bllob_data = {
-		"0": {
-			"age": 0,
-			"position": [148, 424],
-			"health": 100,
-			"hunger": 100,
-			"happiness": 100,
-			"strength": 10,
-			"agility":10,
-			"staminer":10,
-		}
-	}
+	bllob_data = generate_bllob()
 
 # ===============
 # Bllob methods
@@ -165,3 +130,27 @@ func _on_Aging_timeout():
 		bllob_data[bllob_id]["age"] += 1
 
 		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
+
+
+func generate_bllob():
+	"""
+	Generates a new bllob with random attributes
+	"""
+
+	var temp_data = {
+		"0": {
+			"position": [148, 424],
+			"age": 0,
+			"max_age": 100,
+			"satisfaction": 1,
+			"appetite": 1,
+			"health": 100,
+			"hunger": 100,
+			"happiness": 100,
+			"strength": 10,
+			"agility":10,
+			"staminer":10,
+		}
+	}
+
+	return temp_data
