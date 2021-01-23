@@ -163,9 +163,9 @@ __meta__ = {
 
 [node name="Health" type="Label" parent="Node/BllobPanel"]
 margin_left = 72.0
-margin_top = 96.0
+margin_top = 136.0
 margin_right = 171.0
-margin_bottom = 117.0
+margin_bottom = 157.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Health:"
@@ -175,9 +175,9 @@ __meta__ = {
 
 [node name="Hunger" type="Label" parent="Node/BllobPanel"]
 margin_left = 208.0
-margin_top = 96.0
+margin_top = 136.0
 margin_right = 316.0
-margin_bottom = 117.0
+margin_bottom = 157.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Hunger:"
@@ -187,9 +187,9 @@ __meta__ = {
 
 [node name="Happiness" type="Label" parent="Node/BllobPanel"]
 margin_left = 352.0
-margin_top = 96.0
+margin_top = 136.0
 margin_right = 490.0
-margin_bottom = 117.0
+margin_bottom = 157.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Happiness:"
@@ -199,24 +199,12 @@ __meta__ = {
 
 [node name="Age" type="Label" parent="Node/BllobPanel"]
 margin_left = 72.0
-margin_top = 144.0
+margin_top = 96.0
 margin_right = 117.0
-margin_bottom = 165.0
+margin_bottom = 117.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Age: "
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LifeStage" type="Label" parent="Node/BllobPanel"]
-margin_left = 72.0
-margin_top = 168.0
-margin_right = 175.0
-margin_bottom = 189.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Life Stage: "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -256,6 +244,18 @@ text = "Staminer:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ExitButton" type="Button" parent="Node/BllobPanel"]
+margin_left = 696.0
+margin_top = 24.0
+margin_right = 742.0
+margin_bottom = 51.0
+custom_fonts/font = ExtResource( 1 )
+text = "ESC"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Node/BllobPanel/ExitButton" to="." method="hide_bllob_panel"]
 
 [editable path="Node/Games"]
 

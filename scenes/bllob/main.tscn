@@ -8,7 +8,7 @@
 script = ExtResource( 2 )
 
 [node name="AutoSave" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 30.0
 autostart = true
 
 [node name="Background" type="TextureRect" parent="."]

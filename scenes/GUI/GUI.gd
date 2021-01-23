@@ -12,6 +12,7 @@ func _input(event):
 	# Close the panel if esc is pressed
 	if event.is_action_pressed("ui_cancel"):
 		hide_menu_panel(true)
+		hide_bllob_panel()
 		last_pressed = null
 
 func menu_panel_button_pressed(button):
@@ -19,6 +20,7 @@ func menu_panel_button_pressed(button):
 	Called when a button which should trigger the panel is pressed
 	Accepted buttons- games, shop, breeding, hatchery
 	"""
+	hide_bllob_panel()
 	if last_pressed == button:
 		hide_menu_panel(true)
 		button = null
@@ -47,3 +49,26 @@ func hide_menu_panel(panel=false):
 	$Node/MenuPanel/ShopPanel.visible = false
 	$Node/MenuPanel/BreedingPanel.visible = false
 	$Node/MenuPanel/HatcheryPanel.visible = false
+
+func show_bllob_panel(bllob_data):
+	"""
+	Shows the bllob data
+	"""
+	# Hides any other open GUI panels
+	hide_menu_panel(true)
+
+	# Makes the panel visible
+	$Node/BllobPanel.visible = true
+	
+	# Sets all labels to show correct values
+	$Node/BllobPanel/Health.text = "Health: %s" % bllob_data["health"]
+	$Node/BllobPanel/Hunger.text = "Hunger: %s" % bllob_data["hunger"]
+	$Node/BllobPanel/Happiness.text = "Happiness: %s" % bllob_data["happiness"]
+	$Node/BllobPanel/Age.text = "Age: %s" % bllob_data["age"]
+	$Node/BllobPanel/Strength.text = "Strength: %s" % bllob_data["strength"]
+	$Node/BllobPanel/Agility.text = "Agility: %s" % bllob_data["agility"]
+	$Node/BllobPanel/Staminer.text = "Staminer: %s" % bllob_data["staminer"]
+
+
+func hide_bllob_panel():
+	$Node/BllobPanel.visible = false

@@ -38,8 +38,11 @@ func _ready():
 		
 		# Addes the bllobs and set the varaibles
 		add_child(bllob)
+
 		bllob.id = bllob_id
-		bllob.add_data(bllob_data)
+		bllob.position.x = bllob_data[bllob_id]["position"][0]
+		bllob.position.y = bllob_data[bllob_id]["position"][1]
+		bllob.set_age(bllob_data[bllob_id]["age"])
 	
 	update_coin_count()
 
@@ -87,7 +90,7 @@ func bllob_selected(bllob_id):
 	"""
 	Brings up the bllob gui panel displaying it's data
 	"""
-	print("Bllob selected %s" % bllob_id)
+	$GUI.show_bllob_panel(bllob_data[bllob_id])
 
 
 # ================
