@@ -245,17 +245,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExitButton" type="Button" parent="Node/BllobPanel"]
-margin_left = 696.0
+[node name="TextureButton" parent="Node/BllobPanel" instance=ExtResource( 2 )]
+margin_left = 680.0
 margin_top = 24.0
-margin_right = 742.0
-margin_bottom = 51.0
-custom_fonts/font = ExtResource( 1 )
+margin_right = 737.0
+margin_bottom = 56.0
+
+[node name="Label" parent="Node/BllobPanel/TextureButton/CenterContainer" index="0"]
+margin_left = 9.0
+margin_top = 5.0
+margin_right = 48.0
+margin_bottom = 26.0
 text = "ESC"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="pressed" from="Node/BllobPanel/ExitButton" to="." method="hide_bllob_panel"]
+[connection signal="pressed" from="Node/BllobPanel/TextureButton" to="." method="hide_bllob_panel"]
 
 [editable path="Node/Games"]
 
@@ -264,3 +266,5 @@ __meta__ = {
 [editable path="Node/Breeding"]
 
 [editable path="Node/Hatchery"]
+
+[editable path="Node/BllobPanel/TextureButton"]
