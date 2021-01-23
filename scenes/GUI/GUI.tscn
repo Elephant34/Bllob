@@ -139,6 +139,19 @@ visible = false
 [node name="HatcheryPanel" parent="Node/MenuPanel" instance=ExtResource( 7 )]
 visible = false
 
+[node name="ESC" parent="Node/MenuPanel" instance=ExtResource( 2 )]
+margin_left = 680.0
+margin_top = 24.0
+margin_right = 737.0
+margin_bottom = 56.0
+
+[node name="Label" parent="Node/MenuPanel/ESC/CenterContainer" index="0"]
+margin_left = 9.0
+margin_top = 5.0
+margin_right = 48.0
+margin_bottom = 26.0
+text = "ESC"
+
 [node name="BllobPanel" type="Panel" parent="Node"]
 visible = false
 margin_left = 128.0
@@ -245,13 +258,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton" parent="Node/BllobPanel" instance=ExtResource( 2 )]
+[node name="ESC" parent="Node/BllobPanel" instance=ExtResource( 2 )]
 margin_left = 680.0
 margin_top = 24.0
 margin_right = 737.0
 margin_bottom = 56.0
 
-[node name="Label" parent="Node/BllobPanel/TextureButton/CenterContainer" index="0"]
+[node name="Label" parent="Node/BllobPanel/ESC/CenterContainer" index="0"]
 margin_left = 9.0
 margin_top = 5.0
 margin_right = 48.0
@@ -261,7 +274,8 @@ text = "ESC"
 [connection signal="pressed" from="Node/Shop" to="." method="menu_panel_button_pressed" binds= [ "shop" ]]
 [connection signal="pressed" from="Node/Breeding" to="." method="menu_panel_button_pressed" binds= [ "breeding" ]]
 [connection signal="pressed" from="Node/Hatchery" to="." method="menu_panel_button_pressed" binds= [ "hatchery" ]]
-[connection signal="pressed" from="Node/BllobPanel/TextureButton" to="." method="hide_bllob_panel"]
+[connection signal="pressed" from="Node/MenuPanel/ESC" to="." method="menu_panel_button_pressed"]
+[connection signal="pressed" from="Node/BllobPanel/ESC" to="." method="hide_bllob_panel"]
 
 [editable path="Node/Games"]
 
@@ -271,4 +285,6 @@ text = "ESC"
 
 [editable path="Node/Hatchery"]
 
-[editable path="Node/BllobPanel/TextureButton"]
+[editable path="Node/MenuPanel/ESC"]
+
+[editable path="Node/BllobPanel/ESC"]

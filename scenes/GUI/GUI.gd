@@ -5,27 +5,26 @@ var last_pressed
 
 func _ready():
 	# Hide all panel elements just in case I forget to hide them manually
-	hide_menu_panel(true)
-	$Node/BllobPanel.visible = false
+	menu_panel_button_pressed()
+	hide_bllob_panel()
 
 func _input(event):
 	# Close the panel if esc is pressed
 	if event.is_action_pressed("ui_cancel"):
-		hide_menu_panel(true)
+		menu_panel_button_pressed()
 		hide_bllob_panel()
-		last_pressed = null
 
-func menu_panel_button_pressed(button):
+func menu_panel_button_pressed(button=null):
 	"""
 	Called when a button which should trigger the panel is pressed
 	Accepted buttons- games, shop, breeding, hatchery
 	"""
 	hide_bllob_panel()
-	if last_pressed == button:
-		hide_menu_panel(true)
+	hide_menu_panel()
+	
+	if last_pressed == button or not button:
 		button = null
 	else:
-		hide_menu_panel()
 		$Node/MenuPanel.visible = true
 		match button:
 			"games":
@@ -39,12 +38,11 @@ func menu_panel_button_pressed(button):
 	
 	last_pressed=button
 
-func hide_menu_panel(panel=false):
+func hide_menu_panel():
 	"""
 	Hides the panel's children and if panel is true itself as well
 	"""
-	if panel:
-		$Node/MenuPanel.visible = false
+	$Node/MenuPanel.visible = false
 	$Node/MenuPanel/GamesPanel.visible = false
 	$Node/MenuPanel/ShopPanel.visible = false
 	$Node/MenuPanel/BreedingPanel.visible = false
@@ -55,7 +53,7 @@ func show_bllob_panel(bllob_data):
 	Shows the bllob data
 	"""
 	# Hides any other open GUI panels
-	hide_menu_panel(true)
+	hide_menu_panel()
 
 	# Makes the panel visible
 	$Node/BllobPanel.visible = true
