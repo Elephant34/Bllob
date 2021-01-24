@@ -39,6 +39,12 @@ func _ready():
 		bllob_dict[bllob_id].position.x = bllob_data[bllob_id]["position"][0]
 		bllob_dict[bllob_id].position.y = bllob_data[bllob_id]["position"][1]
 		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
+		
+		bllob_dict[bllob_id].get_node("Appetite").wait_time = 5*bllob_data[bllob_id]["appetite"]
+		bllob_dict[bllob_id].get_node("Appetite").connect("timeout", self, "_on_Appetite_timeout", [bllob_id])
+		
+		bllob_dict[bllob_id].get_node("Satisfaction").wait_time = 5*bllob_data[bllob_id]["Satisfaction"]
+		bllob_dict[bllob_id].get_node("Satisfaction").connect("timeout", self, "_on_Satisfaction_timeout", [bllob_id])
 	
 	update_coin_count()
 
@@ -117,6 +123,7 @@ func new_game():
 	
 	bllob_data = generate_bllob()
 
+
 # ===============
 # Bllob methods
 # ===============
@@ -130,6 +137,20 @@ func _on_Aging_timeout():
 		bllob_data[bllob_id]["age"] += 1
 
 		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
+
+func _on_Appetite_timeout(bllob_id):
+	"""
+	Decreases a bllobs hunger
+	"""
+	
+	bllob_data[bllob_id]["hunger"] -= 1
+
+func _on_Satisfaction_timeout(bllob_id):
+	"""
+	Decrease a bllobs happiness
+	"""
+	
+	bllob_data[bllob_id]["happiness"] -= 1
 
 
 func generate_bllob():

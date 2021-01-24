@@ -27,5 +27,11 @@ script = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="baby"]
 position = Vector2( 0, -0.0234127 )
 shape = SubResource( 2 )
+
+[node name="Appetite" type="Timer" parent="."]
+autostart = true
+
+[node name="Satisfaction" type="Timer" parent="."]
+autostart = true
 [connection signal="mouse_entered" from="baby" to="." method="_on_baby_mouse_entered"]
 [connection signal="mouse_exited" from="baby" to="." method="_on_baby_mouse_exited"]
