@@ -16,6 +16,13 @@ var bllob_scene = preload("res://scenes/bllob/bllob.tscn")
 var selected_bllob_id
 
 
+# Default timer seconds
+var appetite_count = 5
+var satisfaction_count = 5
+var aging_count = 20
+
+var autosave_count = 30
+
 # ===========================
 # Overwridden game functions
 # ===========================
@@ -27,6 +34,9 @@ func _ready():
 	coins = game_data["coins"]
 	raw_time = game_data["raw_time"]
 	bllob_data = game_data["bllob_data"]
+	
+	$AutoSave.wait_time = autosave_count
+	$Aging.wait_time = aging_count
 	
 	# Adds all saved bllobs
 	for bllob_id in bllob_data:
@@ -42,10 +52,10 @@ func _ready():
 		bllob_dict[bllob_id].position.y = bllob_data[bllob_id]["position"][1]
 		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
 		
-		bllob_dict[bllob_id].get_node("Appetite").wait_time = 5*bllob_data[bllob_id]["appetite"]
+		bllob_dict[bllob_id].get_node("Appetite").wait_time = appetite_count*bllob_data[bllob_id]["appetite"]
 		bllob_dict[bllob_id].get_node("Appetite").connect("timeout", self, "_on_Appetite_timeout", [bllob_id])
 		
-		bllob_dict[bllob_id].get_node("Satisfaction").wait_time = 5*bllob_data[bllob_id]["satisfaction"]
+		bllob_dict[bllob_id].get_node("Satisfaction").wait_time = satisfaction_count*bllob_data[bllob_id]["satisfaction"]
 		bllob_dict[bllob_id].get_node("Satisfaction").connect("timeout", self, "_on_Satisfaction_timeout", [bllob_id])
 	
 	update_coin_count()
