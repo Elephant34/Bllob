@@ -13,6 +13,8 @@ var bllob_data
 var bllob_dict = {}
 var bllob_scene = preload("res://scenes/bllob/bllob.tscn")
 
+var selected_bllob_id
+
 
 # ===========================
 # Overwridden game functions
@@ -43,7 +45,7 @@ func _ready():
 		bllob_dict[bllob_id].get_node("Appetite").wait_time = 5*bllob_data[bllob_id]["appetite"]
 		bllob_dict[bllob_id].get_node("Appetite").connect("timeout", self, "_on_Appetite_timeout", [bllob_id])
 		
-		bllob_dict[bllob_id].get_node("Satisfaction").wait_time = 5*bllob_data[bllob_id]["Satisfaction"]
+		bllob_dict[bllob_id].get_node("Satisfaction").wait_time = 5*bllob_data[bllob_id]["satisfaction"]
 		bllob_dict[bllob_id].get_node("Satisfaction").connect("timeout", self, "_on_Satisfaction_timeout", [bllob_id])
 	
 	update_coin_count()
@@ -51,6 +53,9 @@ func _ready():
 func _process(dt):
 	# Adds on to the raw game time
 	raw_time += dt
+	
+	if $GUI/Node/BllobPanel.visible:
+		$GUI.show_bllob_panel(bllob_data[selected_bllob_id])
 	
 	# Displays the game time
 	# TODO format the time into a human friendly counter
@@ -75,7 +80,9 @@ func bllob_selected(bllob_id):
 	"""
 	Brings up the bllob gui panel displaying it's data
 	"""
-	$GUI.show_bllob_panel(bllob_data[bllob_id])
+	# Used to update the panel live in _process
+	selected_bllob_id = bllob_id
+	$GUI.show_bllob_panel(bllob_data[selected_bllob_id])
 
 
 # ================
