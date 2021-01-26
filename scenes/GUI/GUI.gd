@@ -48,7 +48,7 @@ func hide_menu_panel():
 	$Node/MenuPanel/BreedingPanel.visible = false
 	$Node/MenuPanel/HatcheryPanel.visible = false
 
-func show_bllob_panel(bllob_data):
+func show_bllob_panel(bllob_id, bllob_data):
 	"""
 	Shows the bllob data
 	"""
@@ -59,6 +59,8 @@ func show_bllob_panel(bllob_data):
 	$Node/BllobPanel.visible = true
 	
 	# Sets all labels to show correct values
+	$Node/BllobPanel/Title.text = "Bllob: %s" % bllob_id
+	
 	$Node/BllobPanel/Health.text = "Health: %s" % bllob_data["health"]
 	$Node/BllobPanel/Hunger.text = "Hunger: %s" % bllob_data["hunger"]
 	$Node/BllobPanel/Happiness.text = "Happiness: %s" % bllob_data["happiness"]

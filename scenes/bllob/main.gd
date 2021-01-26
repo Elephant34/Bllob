@@ -65,7 +65,7 @@ func _process(dt):
 	raw_time += dt
 	
 	if $GUI/Node/BllobPanel.visible:
-		$GUI.show_bllob_panel(bllob_data[selected_bllob_id])
+		$GUI.show_bllob_panel(selected_bllob_id, bllob_data[selected_bllob_id])
 	
 	# Displays the game time
 	# TODO format the time into a human friendly counter
@@ -92,7 +92,7 @@ func bllob_selected(bllob_id):
 	"""
 	# Used to update the panel live in _process
 	selected_bllob_id = bllob_id
-	$GUI.show_bllob_panel(bllob_data[selected_bllob_id])
+	$GUI.show_bllob_panel(selected_bllob_id, bllob_data[selected_bllob_id])
 
 
 # ================
@@ -176,7 +176,7 @@ func generate_bllob():
 	"""
 
 	var temp_data = {
-		"0": {
+		"James": {
 			"position": [148, 424],
 			"age": 0,
 			"max_age": 100,
