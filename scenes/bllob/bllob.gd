@@ -44,3 +44,15 @@ func set_age(new_age):
 	
 	animation=life_stage
 	playing=true
+
+
+func set_colour(colour_list):
+	"""
+	Sets the bllob modulate effectivly changing its colour
+	"""
+	
+	modulate = Color(
+		colour_list[0], 
+		colour_list[1],
+		colour_list[2]
+	)

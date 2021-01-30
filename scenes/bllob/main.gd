@@ -56,7 +56,9 @@ func _ready():
 		bllob_dict[bllob_id].id = bllob_id
 		bllob_dict[bllob_id].position.x = bllob_data[bllob_id]["position"][0]
 		bllob_dict[bllob_id].position.y = bllob_data[bllob_id]["position"][1]
+		
 		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
+		bllob_dict[bllob_id].set_colour(bllob_data[bllob_id]["colour"])
 		
 		bllob_dict[bllob_id].get_node("Appetite").wait_time = appetite_count*bllob_data[bllob_id]["appetite"]
 		bllob_dict[bllob_id].get_node("Appetite").connect("timeout", self, "_on_Appetite_timeout", [bllob_id])
@@ -206,6 +208,7 @@ func generate_bllob():
 
 	var temp_data = {
 		"%s" % name_list[randi()%name_list.size()]: {
+			"colour": [randf(), randf(), randf()],
 			"position": [148, 424],
 			"age": 0,
 			"max_age": 100,

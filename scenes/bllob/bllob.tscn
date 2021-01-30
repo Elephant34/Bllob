@@ -20,11 +20,13 @@ extents = Vector2( 49.7739, 32.0251 )
 [node name="Bllob" type="AnimatedSprite"]
 frames = SubResource( 1 )
 animation = "adult"
+frame = 2
 script = ExtResource( 3 )
 
 [node name="baby" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="baby"]
+visible = false
 position = Vector2( 0, -0.0234127 )
 shape = SubResource( 2 )
 
