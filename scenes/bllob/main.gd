@@ -3,6 +3,7 @@ extends Node2D
 
 # Contains all saved game data
 var game_data
+var name_list = []
 
 # Game specific variables
 var coins
@@ -28,6 +29,11 @@ var autosave_count = 30
 # ===========================
 
 func _ready():
+	randomize()
+	
+	# Loads list of names
+	name_list = load_names()
+	
 	# Load the game state
 	game_data = load_save()
 	
@@ -79,6 +85,11 @@ func _notification(what):
 		get_tree().quit() # default behavior
 
 
+# =======
+# Other
+# =======
+
+
 func update_coin_count():
 	"""
 	Updates the label showing coin count
@@ -93,6 +104,24 @@ func bllob_selected(bllob_id):
 	# Used to update the panel live in _process
 	selected_bllob_id = bllob_id
 	$GUI.show_bllob_panel(selected_bllob_id, bllob_data[selected_bllob_id])
+
+
+func load_names():
+	"""
+	Loads list of common names from text file
+	"""
+	
+	var names = []
+	
+	var f = File.new()
+	f.open("assets/name_list.txt", File.READ)
+	
+	# Iterates through all lines and appends the name
+	while not f.eof_reached():
+		names.append(f.get_line())
+	f.close()
+	
+	return names
 
 
 # ================
@@ -176,7 +205,7 @@ func generate_bllob():
 	"""
 
 	var temp_data = {
-		"James": {
+		"%s" % name_list[randi()%name_list.size()]: {
 			"position": [148, 424],
 			"age": 0,
 			"max_age": 100,
