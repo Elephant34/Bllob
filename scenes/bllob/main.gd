@@ -234,10 +234,30 @@ func new_bllob_name():
 	Generates a new bllob name and checks for duplication
 	"""
 	
-	# TODO:
-	# Check for duplication
+	var temp_name = null
 	
-	return name_list[randi()%name_list.size()]
+	for _name in name_list:
+		if not(_name in bllob_data.keys()):
+			temp_name = _name
+			break
+	
+	if not temp_name:
+		var index = randi()%name_list.size()
+		var count = 1
+		while true:
+			temp_name = name_list[index] + "#%s" % count
+			
+			if temp_name in bllob_data.keys():
+				index += 1
+				if index == name_list.size():
+					index = 0
+					count += 1
+			else:
+				break
+	
+	print(temp_name)
+	
+	return temp_name
 
 
 func new_bllob_position():
