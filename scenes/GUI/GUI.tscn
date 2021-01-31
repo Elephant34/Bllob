@@ -285,6 +285,8 @@ text = "ESC"
 
 [editable path="Node/Hatchery"]
 
+[editable path="Node/MenuPanel/ShopPanel"]
+
 [editable path="Node/MenuPanel/ESC"]
 
 [editable path="Node/BllobPanel/ESC"]

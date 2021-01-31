@@ -2,7 +2,7 @@ extends Node2D
 
 
 # Contains all saved game data
-var game_data
+var game_data = {}
 var name_list = []
 
 # Game specific variables
@@ -10,7 +10,7 @@ var coins
 var raw_time
 
 # Stores all data about bllobs
-var bllob_data
+var bllob_data = {}
 var bllob_dict = {}
 var bllob_scene = preload("res://scenes/bllob/bllob.tscn")
 
@@ -29,7 +29,11 @@ var autosave_count = 30
 # ===========================
 
 func _ready():
+	# Ensures random variables are random
 	randomize()
+	
+	# Connects all signals to functions
+	connect_signals()
 	
 	# Loads list of names
 	name_list = load_names()
@@ -46,27 +50,9 @@ func _ready():
 	
 	# Adds all saved bllobs
 	for bllob_id in bllob_data:
-		var bllob = bllob_scene.instance()
-		
-		# Addes the bllobs and set the varaibles
-		add_child(bllob)
-
-		bllob_dict[bllob_id] = bllob
-
-		bllob_dict[bllob_id].id = bllob_id
-		bllob_dict[bllob_id].position.x = bllob_data[bllob_id]["position"][0]
-		bllob_dict[bllob_id].position.y = bllob_data[bllob_id]["position"][1]
-		
-		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
-		bllob_dict[bllob_id].set_colour(bllob_data[bllob_id]["colour"])
-		
-		bllob_dict[bllob_id].get_node("Appetite").wait_time = appetite_count*bllob_data[bllob_id]["appetite"]
-		bllob_dict[bllob_id].get_node("Appetite").connect("timeout", self, "_on_Appetite_timeout", [bllob_id])
-		
-		bllob_dict[bllob_id].get_node("Satisfaction").wait_time = satisfaction_count*bllob_data[bllob_id]["satisfaction"]
-		bllob_dict[bllob_id].get_node("Satisfaction").connect("timeout", self, "_on_Satisfaction_timeout", [bllob_id])
+		instance_bllob(bllob_id)
 	
-	update_coin_count()
+	update_coin_count(0)
 
 func _process(dt):
 	# Adds on to the raw game time
@@ -92,20 +78,12 @@ func _notification(what):
 # =======
 
 
-func update_coin_count():
+func connect_signals():
 	"""
-	Updates the label showing coin count
+	Connects any signals from button presses to functions
 	"""
-	$GUI/Node/Coins.text = "Coins: %s" % coins
-
-
-func bllob_selected(bllob_id):
-	"""
-	Brings up the bllob gui panel displaying it's data
-	"""
-	# Used to update the panel live in _process
-	selected_bllob_id = bllob_id
-	$GUI.show_bllob_panel(selected_bllob_id, bllob_data[selected_bllob_id])
+	
+	$GUI/Node/MenuPanel/ShopPanel/Egg.connect("pressed", self, "_on_egg_purchesed")
 
 
 func load_names():
@@ -201,15 +179,40 @@ func _on_Satisfaction_timeout(bllob_id):
 	bllob_data[bllob_id]["happiness"] -= 1
 
 
+func instance_bllob(bllob_id):
+	"""
+	Instances a new bllob with a given id or geneorates a new one
+	"""
+	var bllob = bllob_scene.instance()
+		
+	# Addes the bllobs and set the varaibles
+	add_child(bllob)
+
+	bllob_dict[bllob_id] = bllob
+
+	bllob_dict[bllob_id].id = bllob_id
+	bllob_dict[bllob_id].position.x = bllob_data[bllob_id]["position"][0]
+	bllob_dict[bllob_id].position.y = bllob_data[bllob_id]["position"][1]
+	
+	bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
+	bllob_dict[bllob_id].set_colour(bllob_data[bllob_id]["colour"])
+	
+	bllob_dict[bllob_id].get_node("Appetite").wait_time = appetite_count*bllob_data[bllob_id]["appetite"]
+	bllob_dict[bllob_id].get_node("Appetite").connect("timeout", self, "_on_Appetite_timeout", [bllob_id])
+	
+	bllob_dict[bllob_id].get_node("Satisfaction").wait_time = satisfaction_count*bllob_data[bllob_id]["satisfaction"]
+	bllob_dict[bllob_id].get_node("Satisfaction").connect("timeout", self, "_on_Satisfaction_timeout", [bllob_id])
+
+
 func generate_bllob():
 	"""
 	Generates a new bllob with random attributes
 	"""
 
 	var temp_data = {
-		"%s" % name_list[randi()%name_list.size()]: {
+		"%s" % new_bllob_name(): {
 			"colour": [randf(), randf(), randf()],
-			"position": [148, 424],
+			"position": new_bllob_position(),
 			"age": 0,
 			"max_age": 100,
 			"satisfaction": 1,
@@ -224,3 +227,65 @@ func generate_bllob():
 	}
 
 	return temp_data
+
+
+func new_bllob_name():
+	"""
+	Generates a new bllob name and checks for duplication
+	"""
+	
+	# TODO:
+	# Check for duplication
+	
+	return name_list[randi()%name_list.size()]
+
+
+func new_bllob_position():
+	"""
+	Generates a new bllob positon which doesn't collide with any other bllob
+	"""
+	
+	# 100 x 64 is size of sprite so this is taken into account for position
+	var x_pos = rand_range(60, get_viewport().size.x - (50 + 60))
+	var y_pos = rand_range(600, get_viewport().size.y - (32 + 40))
+	
+	# TODO:
+	# Check collision
+	
+	return [x_pos, y_pos]
+
+
+# =============
+# GUI Methods
+# =============
+
+func update_coin_count(delta_coins):
+	"""
+	Updates the coin counter and GUI label
+	"""
+	coins += delta_coins
+	
+	$GUI/Node/Coins.text = "Coins: %s" % coins
+
+
+func bllob_selected(bllob_id):
+	"""
+	Brings up the bllob gui panel displaying it's data
+	"""
+	# Used to update the panel live in _process
+	selected_bllob_id = bllob_id
+	$GUI.show_bllob_panel(selected_bllob_id, bllob_data[selected_bllob_id])
+
+func _on_egg_purchesed():
+	"""
+	Called when an egg is broght from the shop
+	"""
+	
+	# TODO:
+	# Coin stuff
+	# The egg should really go to the hatchery but this is an exaple only
+	var bllob = generate_bllob()
+	var bllob_id = bllob.keys()[0]
+	bllob_data[bllob_id] = bllob[bllob_id]
+	
+	instance_bllob(bllob_id)
