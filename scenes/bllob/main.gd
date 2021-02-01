@@ -37,6 +37,7 @@ func _ready():
 	
 	# Loads list of names
 	name_list = load_names()
+	name_list.shuffle()
 	
 	# Load the game state
 	game_data = load_save()
@@ -242,7 +243,7 @@ func new_bllob_name():
 			break
 	
 	if not temp_name:
-		var index = randi()%name_list.size()
+		var index = 0
 		var count = 1
 		while true:
 			temp_name = name_list[index] + "#%s" % count
@@ -266,8 +267,9 @@ func new_bllob_position():
 	"""
 	
 	# 100 x 64 is size of sprite so this is taken into account for position
+	print(get_viewport().size.y - (32 + 40))
 	var x_pos = rand_range(60, get_viewport().size.x - (50 + 60))
-	var y_pos = rand_range(600, get_viewport().size.y - (32 + 40))
+	var y_pos = rand_range(400, get_viewport().size.y - (32 + 40))
 	
 	# TODO:
 	# Check collision
