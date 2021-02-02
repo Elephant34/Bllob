@@ -43,8 +43,6 @@ func hide_menu_panel():
 	Hides the panel's children and if panel is true itself as well
 	"""
 	
-	last_pressed = "bllob"
-	
 	$Node/MenuPanel.visible = false
 	$Node/MenuPanel/GamesPanel.visible = false
 	$Node/MenuPanel/ShopPanel.visible = false
@@ -57,6 +55,9 @@ func show_bllob_panel(bllob_id, bllob_data):
 	"""
 	# Hides any other open GUI panels
 	hide_menu_panel()
+	
+	# To avoid interference with menu panel
+	last_pressed = "bllob"
 
 	# Makes the panel visible
 	$Node/BllobPanel.visible = true

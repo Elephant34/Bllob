@@ -84,7 +84,8 @@ func connect_signals():
 	Connects any signals from button presses to functions
 	"""
 	
-	$GUI/Node/MenuPanel/ShopPanel/Egg.connect("pressed", self, "_on_egg_purchesed")
+	$GUI/Node/MenuPanel/ShopPanel/Egg.connect("pressed", self, "_on_Egg_purchesed")
+	$GUI/Node/MenuPanel/GamesPanel/Dodger.connect("pressed", self, "_on_Dodger_pressed")
 
 
 func load_names():
@@ -256,8 +257,6 @@ func new_bllob_name():
 			else:
 				break
 	
-	print(temp_name)
-	
 	return temp_name
 
 
@@ -267,7 +266,6 @@ func new_bllob_position():
 	"""
 	
 	# 100 x 64 is size of sprite so this is taken into account for position
-	print(get_viewport().size.y - (32 + 40))
 	var x_pos = rand_range(60, get_viewport().size.x - (50 + 60))
 	var y_pos = rand_range(400, get_viewport().size.y - (32 + 40))
 	
@@ -298,10 +296,14 @@ func bllob_selected(bllob_id):
 	selected_bllob_id = bllob_id
 	$GUI.show_bllob_panel(selected_bllob_id, bllob_data[selected_bllob_id])
 
-func _on_egg_purchesed():
+func _on_Egg_purchesed():
 	"""
 	Called when an egg is broght from the shop
 	"""
+	
+	if len(bllob_data) >= 5:
+		# 5 blobs max
+		return
 	
 	# TODO:
 	# Coin stuff
@@ -311,3 +313,13 @@ func _on_egg_purchesed():
 	bllob_data[bllob_id] = bllob[bllob_id]
 	
 	instance_bllob(bllob_id)
+
+
+func _on_Dodger_pressed():
+	"""
+	Called to start the dodger game
+	"""
+	make_save()
+	
+	get_tree().change_scene("res://scenes/bllob/dodger_game.tscn")
+	print("hello")
