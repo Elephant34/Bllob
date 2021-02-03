@@ -301,13 +301,20 @@ func _on_Egg_purchesed():
 	Called when an egg is broght from the shop
 	"""
 	
+	var egg_cost = 10
+	
+	if coins < egg_cost:
+		return
+	
 	if len(bllob_data) >= 5:
 		# 5 blobs max
 		return
 	
 	# TODO:
-	# Coin stuff
 	# The egg should really go to the hatchery but this is an exaple only
+	
+	update_coin_count(-10)
+	
 	var bllob = generate_bllob()
 	var bllob_id = bllob.keys()[0]
 	bllob_data[bllob_id] = bllob[bllob_id]
