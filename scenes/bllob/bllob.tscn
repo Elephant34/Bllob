@@ -23,9 +23,9 @@ animation = "adult"
 frame = 2
 script = ExtResource( 3 )
 
-[node name="baby" type="Area2D" parent="."]
+[node name="bllob_shape" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="baby"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bllob_shape"]
 shape = SubResource( 2 )
 
 [node name="Appetite" type="Timer" parent="."]
@@ -33,5 +33,3 @@ autostart = true
 
 [node name="Satisfaction" type="Timer" parent="."]
 autostart = true
-[connection signal="mouse_entered" from="baby" to="." method="_on_baby_mouse_entered"]
-[connection signal="mouse_exited" from="baby" to="." method="_on_baby_mouse_exited"]

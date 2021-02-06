@@ -4,3 +4,9 @@
 
 [node name="Global" type="Node"]
 script = ExtResource( 1 )
+
+[node name="AutoSave" type="Timer" parent="."]
+
+[node name="Aging" type="Timer" parent="."]
+[connection signal="timeout" from="AutoSave" to="." method="_on_AutoSave_timeout"]
+[connection signal="timeout" from="Aging" to="." method="_on_Aging_timeout"]

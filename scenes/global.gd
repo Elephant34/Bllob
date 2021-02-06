@@ -2,7 +2,7 @@ extends Node
 
 
 # Game scenes preloading
-var main_scene = preload("res://scenes/bllob/main.tscn")
+var home_prescene = preload("res://scenes/bllob/home.tscn")
 
 # Save data variables
 var game_data = {}
@@ -15,7 +15,14 @@ var raw_time
 # Bllob variables
 var bllob_data = {}
 var bllob_dict = {}
-var bllob_scene = preload("res://scenes/bllob/bllob.tscn")
+var bllob_prescene = preload("res://scenes/bllob/bllob.tscn")
+
+# Default timer seconds
+var appetite_count = 5
+var satisfaction_count = 5
+var aging_count = 20
+
+var autosave_count = 30
 
 
 func say_hello():
@@ -37,13 +44,18 @@ func _ready():
 	
 	# Load the game state
 	game_data = load_save()
+	$AutoSave.wait_time = autosave_count
+	$AutoSave.start()
 	
 	coins = game_data["coins"]
 	raw_time = game_data["raw_time"]
 	bllob_data = game_data["bllob_data"]
 	
-	var main = main_scene.instance()
-	add_child(main)
+	
+	var home_scene = home_prescene.instance()
+	add_child(home_scene)
+	
+	$Aging.wait_time = aging_count
 
 
 func _notification(what):
@@ -51,6 +63,7 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		make_save()
 		get_tree().quit() # default behavior
+
 
 func _process(dt):
 	# Adds on to the raw game time
@@ -196,3 +209,13 @@ func new_bllob_position():
 	# Check collision
 	
 	return [x_pos, y_pos]
+
+func _on_Aging_timeout():
+	"""
+	Adds 1 to all bllob ages
+	"""
+
+	for bllob_id in bllob_data:
+		bllob_data[bllob_id]["age"] += 1
+
+		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
