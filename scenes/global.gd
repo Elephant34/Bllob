@@ -14,7 +14,7 @@ var raw_time
 
 # Bllob variables
 var bllob_data = {}
-var bllob_dict = {}
+var loaded_bllobs = {}
 var bllob_prescene = preload("res://scenes/bllob/bllob.tscn")
 
 # Default timer seconds
@@ -24,9 +24,9 @@ var aging_count = 20
 
 var autosave_count = 30
 
+var timer_paused = false
 
-func say_hello():
-	print("hello world")
+
 # ============================
 # Overwritten Game Functions
 # ============================#
@@ -54,8 +54,6 @@ func _ready():
 	
 	var home_scene = home_prescene.instance()
 	add_child(home_scene)
-	
-	$Aging.wait_time = aging_count
 
 
 func _notification(what):
@@ -66,8 +64,12 @@ func _notification(what):
 
 
 func _process(dt):
+	"""
+	Runs many times a second
+	"""
 	# Adds on to the raw game time
-	raw_time += dt
+	if not timer_paused:
+		raw_time += dt
 
 
 # ================
@@ -132,22 +134,25 @@ func make_save():
 
 
 func new_game():
+	"""
+	Sets all the variables for the first time
+	"""
 	coins = 0
 	raw_time = 0.0
 	
-	bllob_data = generate_bllob()
+	bllob_data = generate_clean_bllob()
 
 
 # =================
 # Bllob Functions
 # =================
 
-func generate_bllob():
+func generate_clean_bllob():
 	"""
-	Generates a new bllob with random attributes
+	Generates a new bllob with no parents
 	"""
 
-	var temp_data = {
+	var new_bllob_data = {
 		"%s" % new_bllob_name(): {
 			"colour": [randf(), randf(), randf()],
 			"position": new_bllob_position(),
@@ -164,7 +169,7 @@ func generate_bllob():
 		}
 	}
 
-	return temp_data
+	return new_bllob_data
 
 
 func new_bllob_name():
@@ -199,23 +204,12 @@ func new_bllob_name():
 func new_bllob_position():
 	"""
 	Generates a new bllob positon which doesn't collide with any other bllob
+	
+	TODO: Make this better :)
 	"""
 	
 	# 100 x 64 is size of sprite so this is taken into account for position
 	var x_pos = rand_range(60, get_viewport().size.x - (50 + 60))
 	var y_pos = rand_range(400, get_viewport().size.y - (32 + 40))
 	
-	# TODO:
-	# Check collision
-	
 	return [x_pos, y_pos]
-
-func _on_Aging_timeout():
-	"""
-	Adds 1 to all bllob ages
-	"""
-
-	for bllob_id in bllob_data:
-		bllob_data[bllob_id]["age"] += 1
-
-		bllob_dict[bllob_id].set_age(bllob_data[bllob_id]["age"])
