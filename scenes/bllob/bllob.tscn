@@ -20,7 +20,6 @@ extents = Vector2( 49.7739, 32.0251 )
 [node name="Bllob" type="AnimatedSprite"]
 frames = SubResource( 1 )
 animation = "adult"
-frame = 2
 script = ExtResource( 3 )
 
 [node name="bllob_shape" type="Area2D" parent="."]
