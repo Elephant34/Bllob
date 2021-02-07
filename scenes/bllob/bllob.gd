@@ -76,3 +76,32 @@ func set_pos():
 				self_data.position[0],
 				self_data.position[1]
 			)
+
+
+func _on_BllobPanel_about_to_show():
+	$BllobPanel/Tween.interpolate_property($BllobPanel, "modulate:a", 0.0, 1.0, 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	$BllobPanel.rect_position = Vector2(
+		self_data.position[0]+50,
+		self_data.position[1]-144
+	)
+	
+	var attribute_list = $BllobPanel/MarginContainer/AttributeList
+	attribute_list.get_node("Name").text = id
+	attribute_list.get_node("Age").text = "Age: %s" % self_data["age"]
+	attribute_list.get_node("Health").text = "Health: %s" % self_data["health"]
+	attribute_list.get_node("Hunger").text = "Hunger: %s" % self_data["hunger"]
+	attribute_list.get_node("Happiness").text = "Happiness: %s" % self_data["happiness"]
+	attribute_list.get_node("Strength").text = "Strength: %s" % self_data["strength"]
+	attribute_list.get_node("Agility").text = "Agility: %s" % self_data["agility"]
+	attribute_list.get_node("Staminer").text = "Staminer: %s" % self_data["staminer"]
+	
+	$BllobPanel/Tween.start()
+
+
+func _on_BllobShape_mouse_entered():
+	$BllobPanel.popup()
+
+
+func _on_BllobShape_mouse_exited():
+	$BllobPanel.hide()

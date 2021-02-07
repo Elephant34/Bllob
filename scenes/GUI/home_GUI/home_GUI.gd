@@ -10,7 +10,6 @@ func _ready():
 	global = get_tree().get_current_scene()
 	
 	$Node/MenuPanel.visible = false
-	$Node/BllobPanel.visible = false
 
 
 func _process(_dt):
