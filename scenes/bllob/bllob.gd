@@ -45,18 +45,13 @@ func set_dynamics():
 	"""
 	Sets the correct animation for the bllobs age and mode
 	"""
-	# Gets the bllobs age
-	var temp_age = self_data.age
-	
-	for i in range(100):
-		print(randi() % 4)
 	
 	match mode:
 		"home":
 			# Idle home animation
-			if temp_age >= 0:
+			if self_data.age >= 0:
 				animation = "adult"
-				frame = randi() % 4
+				frame = randi() % frames.get_frame_count(animation)
 				playing = true
 
 func set_colour():

@@ -270,8 +270,11 @@ margin_top = 5.0
 margin_right = 48.0
 margin_bottom = 26.0
 text = "ESC"
-[connection signal="pressed" from="Node/MenuPanel/ESC" to="." method="menu_panel_button_pressed"]
-[connection signal="pressed" from="Node/BllobPanel/ESC" to="." method="hide_bllob_panel"]
+[connection signal="pressed" from="Node/Games" to="." method="_on_MenuPanel_event" binds= [ "games" ]]
+[connection signal="pressed" from="Node/Shop" to="." method="_on_MenuPanel_event" binds= [ "shop" ]]
+[connection signal="pressed" from="Node/Breeding" to="." method="_on_MenuPanel_event" binds= [ "breeding" ]]
+[connection signal="pressed" from="Node/Hatchery" to="." method="_on_MenuPanel_event" binds= [ "hatchery" ]]
+[connection signal="pressed" from="Node/MenuPanel/ESC" to="." method="_on_MenuPanel_event" binds= [ "exit" ]]
 
 [editable path="Node/Games"]
 
@@ -280,8 +283,6 @@ text = "ESC"
 [editable path="Node/Breeding"]
 
 [editable path="Node/Hatchery"]
-
-[editable path="Node/MenuPanel/ShopPanel"]
 
 [editable path="Node/MenuPanel/ESC"]
 
