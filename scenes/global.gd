@@ -18,10 +18,6 @@ var loaded_bllobs = {}
 var bllob_prescene = preload("res://scenes/bllob/bllob.tscn")
 
 # Default timer seconds
-var appetite_count = 5
-var satisfaction_count = 5
-var aging_count = 20
-
 var autosave_count = 30
 
 var timer_paused = false
@@ -165,7 +161,7 @@ func generate_clean_bllob():
 			"happiness": 100,
 			"strength": 10,
 			"agility":10,
-			"staminer":10,
+			"stamina":10,
 		}
 	}
 
