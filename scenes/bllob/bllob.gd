@@ -141,9 +141,52 @@ func _on_Timer_timeout(timer):
 	"""
 	match timer:
 		"appetite":
-			self_data.hunger -= 1
+			update_hunger(-1)
 		"satisfaction":
-			self_data.happiness -= 1
+			update_happiness(-1)
 		"aging":
-			self_data.age += 1
-			set_dynamics()
+			update_age(1)
+			
+
+
+func update_hunger(delta_hunger):
+	"""
+	Updates bllob hunger
+	"""
+	self_data.hunger += delta_hunger
+	
+	if self_data.hunger == 0:
+		bllob_death()
+
+func update_happiness(delta_happiness):
+	"""
+	Updates bllob happiness
+	"""
+	self_data.happiness += delta_happiness
+	
+	if self_data.happiness == 0:
+		bllob_death()
+
+func update_age(delta_age):
+	"""
+	Updates bllob age
+	"""
+	self_data.age += delta_age
+	
+	set_dynamics()
+	
+	if self_data.age == self_data.max_age:
+		bllob_death()
+
+
+func bllob_death():
+	"""
+	Called when the bllob dies
+	"""
+	$Appetite.stop()
+	$Satisfaction.stop()
+	$Aging.stop()
+	
+	modulate = Color(1,1,1)
+	
+	animation = "dead"
