@@ -3,6 +3,9 @@ extends Node
 
 # Game scenes preloading
 var home_prescene = preload("res://scenes/bllob/home.tscn")
+var dodger_prescene = preload("res://scenes/games/dodger_game.tscn")
+
+var active_scene
 
 # Save data variables
 var game_data = {}
@@ -19,8 +22,6 @@ var bllob_prescene = preload("res://scenes/bllob/bllob.tscn")
 
 # Default timer seconds
 var autosave_count = 30
-
-var timer_paused = false
 
 
 # ============================
@@ -47,9 +48,8 @@ func _ready():
 	raw_time = game_data["raw_time"]
 	bllob_data = game_data["bllob_data"]
 	
-	
-	var home_scene = home_prescene.instance()
-	add_child(home_scene)
+	# Brings up home screen by default
+	load_home()
 
 
 func _notification(what):
@@ -64,8 +64,7 @@ func _process(dt):
 	Runs many times a second
 	"""
 	# Adds on to the raw game time
-	if not timer_paused:
-		raw_time += dt
+	raw_time += dt
 
 
 # ================
@@ -209,3 +208,36 @@ func new_bllob_position():
 	var y_pos = rand_range(400, get_viewport().size.y - (32 + 40))
 	
 	return [x_pos, y_pos]
+
+
+# ================
+# Game Functions
+# ================
+
+func load_game(game):
+	"""
+	Switches scene to run a game
+	"""
+	
+	remove_child(active_scene)
+	
+	match game:
+		"dodger":
+			var dodger_scene = dodger_prescene.instance()
+			add_child(dodger_scene)
+			
+			active_scene = dodger_scene
+
+func load_home():
+	"""
+	Loads the home screen
+	"""
+	
+	# This may be called with no other active scene
+	if active_scene:
+		remove_child(active_scene)
+	
+	var home_scene = home_prescene.instance()
+	add_child(home_scene)
+	
+	active_scene = home_scene
