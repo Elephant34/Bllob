@@ -158,9 +158,9 @@ func generate_clean_bllob():
 			"health": 100,
 			"hunger": 100,
 			"happiness": 100,
-			"strength": 10,
-			"agility":10,
-			"stamina":10,
+			"strength": 1.0,
+			"agility":1.0,
+			"stamina":1.0,
 		}
 	}
 

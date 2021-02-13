@@ -17,6 +17,8 @@ var satisfaction_count = 5
 
 var aging_count = 20
 
+var speed = 100
+
 
 func _ready():
 	"""
@@ -44,9 +46,25 @@ func _ready():
 	$Aging.wait_time = aging_count
 
 
-func _process(_dt):
+func _process(dt):
 	if panel_visible:
 		set_attribute_text()
+
+	"""
+	Handles inputs for the correct mode
+	"""
+	var velocity = Vector2()
+	match mode:
+		"dodger":
+			if Input.is_action_pressed("bllob_left"):
+				velocity.x -= 1
+			elif Input.is_action_pressed("bllob_right"):
+				velocity.x += 1
+			
+			velocity = velocity * (speed * self_data["agility"])
+			
+			position += velocity * dt
+			position.x = clamp(position.x, 0, get_viewport_rect().size.x)
 
 
 func setup(bllob_id, bllob_mode):
@@ -71,6 +89,12 @@ func set_dynamics():
 				animation = "adult"
 				frame = randi() % frames.get_frame_count(animation)
 				playing = true
+		"dodger":
+			# Sets animation for game play
+			# For now its the same idle one
+			animation = "adult"
+			frame = randi() % frames.get_frame_count(animation)
+			playing = true
 
 func set_colour():
 	"""
@@ -93,6 +117,11 @@ func set_pos():
 			position = Vector2(
 				self_data.position[0],
 				self_data.position[1]
+			)
+		"dodger":
+			position = Vector2(
+				512,
+				544
 			)
 
 
@@ -126,13 +155,15 @@ func _on_BllobPanel_about_to_show():
 
 
 func _on_BllobShape_mouse_entered():
-	$BllobPanel.popup()
-	panel_visible = true
+	if mode == "home":
+		$BllobPanel.popup()
+		panel_visible = true
 
 
 func _on_BllobShape_mouse_exited():
-	$BllobPanel.hide()
-	panel_visible = false
+	if mode == "home":
+		$BllobPanel.hide()
+		panel_visible = false
 
 
 func _on_Timer_timeout(timer):
