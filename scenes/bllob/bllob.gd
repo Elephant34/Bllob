@@ -221,3 +221,13 @@ func bllob_death():
 	modulate = Color(1,1,1)
 	
 	animation = "dead"
+
+
+func _on_BllobShape_area_entered(area):
+	# If playing dodger game
+	if mode == "dodger":
+		if area.is_in_group("boxes"):
+			get_parent().game_over()
+		elif area.is_in_group("coins"):
+			global.coins += 1
+			area.get_parent().queue_free()

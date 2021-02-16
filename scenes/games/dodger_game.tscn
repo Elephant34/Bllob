@@ -33,7 +33,12 @@ text = "Home"
 [node name="BoxTimer" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
+
+[node name="CoinTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
 [connection signal="pressed" from="Home" to="." method="_on_Home_pressed"]
 [connection signal="timeout" from="BoxTimer" to="." method="_on_BoxTimer_timeout"]
+[connection signal="timeout" from="CoinTimer" to="." method="_on_CoinTimer_timeout"]
 
 [editable path="Home"]

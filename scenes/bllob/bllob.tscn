@@ -172,6 +172,7 @@ autostart = true
 
 [node name="Aging" type="Timer" parent="."]
 autostart = true
+[connection signal="area_entered" from="BllobShape" to="." method="_on_BllobShape_area_entered"]
 [connection signal="mouse_entered" from="BllobShape" to="." method="_on_BllobShape_mouse_entered"]
 [connection signal="mouse_exited" from="BllobShape" to="." method="_on_BllobShape_mouse_exited"]
 [connection signal="about_to_show" from="BllobPanel" to="." method="_on_BllobPanel_about_to_show"]

@@ -235,7 +235,7 @@ func load_home():
 	
 	# This may be called with no other active scene
 	if active_scene:
-		remove_child(active_scene)
+		call_deferred("remove_child", active_scene)
 	
 	var home_scene = home_prescene.instance()
 	add_child(home_scene)

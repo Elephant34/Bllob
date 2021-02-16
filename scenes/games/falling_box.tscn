@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/textures/game/box.png" type="Texture" id=1]
 [ext_resource path="res://scenes/games/falling_box.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 49.9502, 49.9781 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 49.8948, 24.8845 )
 
 [node name="FallingBox" type="Sprite"]
 texture = ExtResource( 1 )
@@ -14,4 +17,10 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+
+[node name="BllobCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BllobCollision"]
+position = Vector2( 0, 24 )
+shape = SubResource( 2 )
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
