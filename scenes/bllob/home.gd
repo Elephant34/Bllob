@@ -23,4 +23,4 @@ func load_bllobs():
 		# Sets up the needed bllob variables before it can be added
 		global.loaded_bllobs[bllob_id].setup(bllob_id, "home")
 		
-		add_child(global.loaded_bllobs[bllob_id])
+		call_deferred("add_child", global.loaded_bllobs[bllob_id])
