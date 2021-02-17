@@ -21,7 +21,9 @@ func _on_Item_pressed(item):
 		"egg":
 			if global.coins >= egg_price:
 				global.coins -= egg_price
-				print("egg")
+				
+				var egg_data = global.generate_clean_bllob()
+				global.add_bllob(egg_data)
 		"food":
 			if global.coins >= food_price:
 				global.coins -= food_price

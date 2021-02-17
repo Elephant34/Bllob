@@ -210,6 +210,20 @@ func new_bllob_position():
 	return [x_pos, y_pos]
 
 
+func add_bllob(new_bllob_data):
+	"""
+	Add a new bllob to the save and to the home screen
+	Should be called by egg hatching
+	"""
+	
+	var new_bllob_id = new_bllob_data.keys()[0]
+	
+	bllob_data[new_bllob_id] = new_bllob_data[new_bllob_id]
+	
+	if active_scene.get_filename() == home_prescene.get_path():
+		active_scene.load_bllobs()
+
+
 # ================
 # Game Functions
 # ================
