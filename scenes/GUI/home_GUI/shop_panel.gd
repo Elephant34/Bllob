@@ -27,4 +27,17 @@ func _on_Item_pressed(item):
 		"food":
 			if global.coins >= food_price:
 				global.coins -= food_price
-				print("food")
+				
+				# For now give food to lowest hunger
+				var current_bllob = ["bllob id", 1000]
+				for bllob_id in global.bllob_data:
+					if global.bllob_data[bllob_id].hunger < current_bllob[1]:
+						current_bllob = [bllob_id,global.bllob_data[bllob_id].hunger]
+				
+				global.bllob_data[current_bllob[0]].hunger += 20
+
+				# Ensures bllobs cannot exceed max hunger
+				if global.bllob_data[current_bllob[0]].hunger > 100:
+					global.bllob_data[current_bllob[0]].hunger = 100
+				
+				

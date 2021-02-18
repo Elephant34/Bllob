@@ -11,6 +11,8 @@ var game_time = 0
 
 var inital_coins
 
+var playing_bllob_id
+
 
 func _ready():
 	global = get_tree().get_current_scene()
@@ -18,10 +20,15 @@ func _ready():
 	inital_coins = global.coins
 	
 	var bllob = global.bllob_prescene.instance()
+
+	# Gets least happy bllob
+	var current_bllob = ["bllob_id", 1000]
+	for bllob_id in global.bllob_data:
+		if global.bllob_data[bllob_id].happiness < current_bllob[1]:
+			current_bllob = [bllob_id,global.bllob_data[bllob_id].happiness]
 	
-	# Gets a random bllob from save
-	var bllob_id = global.bllob_data.keys()[randi()%global.bllob_data.size()]
-	bllob.setup(bllob_id, "dodger")
+	playing_bllob_id = current_bllob[0]
+	bllob.setup(playing_bllob_id, "dodger")
 	add_child(bllob)
 
 
@@ -70,6 +77,13 @@ func game_over():
 	"""
 	
 	var delta_coins = global.coins - inital_coins
+
+	# Adds bllob happiness
+	global.bllob_data[playing_bllob_id].happiness += game_time
+
+	# Ensures happiness doesn't exceed 100
+	if global.bllob_data[playing_bllob_id].happiness > 100:
+		global.bllob_data[playing_bllob_id].happiness = 100
 	
 	# Score will be used to work out xp
 	var score = (delta_coins+1) * (game_time/8)
