@@ -1,5 +1,5 @@
 # Bllob
-## Version: Dev.0
+## Version: Dev.1
 A pet game inspired by duck life and tamagotchi. Feed and play with your bllobs to keep them alive and happy
 
 ## License
