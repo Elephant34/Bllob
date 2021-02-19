@@ -79,7 +79,7 @@ func load_names():
 	var names = []
 	
 	var f = File.new()
-	f.open("assets/name_list.txt", File.READ)
+	f.open("res://assets/name_list.txt", File.READ)
 	
 	# Iterates through all lines and appends the name
 	while not f.eof_reached():
