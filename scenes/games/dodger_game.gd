@@ -79,7 +79,7 @@ func game_over():
 	var delta_coins = global.coins - inital_coins
 
 	# Adds bllob happiness
-	global.bllob_data[playing_bllob_id].happiness += game_time
+	global.bllob_data[playing_bllob_id].happiness += round(game_time)
 
 	# Ensures happiness doesn't exceed 100
 	if global.bllob_data[playing_bllob_id].happiness > 100:
