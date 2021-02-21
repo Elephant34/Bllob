@@ -89,6 +89,24 @@ func load_names():
 	return names
 
 
+func get_readable_time() -> String:
+	"""
+	Converts the raw time to a human readable string
+	Format 00:00:00
+	"""
+	var time_string = str(round(raw_time))
+
+	var time_list = []
+
+	while time_string:
+		time_list.insert(0, time_string.right(time_string.length()-2))
+		time_string.erase(time_string.length()-2, 2)
+	
+	time_string = PoolStringArray(time_list).join(":")
+
+	return time_string
+
+
 # ================
 # Save Functions
 # ================

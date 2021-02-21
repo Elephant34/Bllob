@@ -17,7 +17,7 @@ func _process(_dt):
 	$Node/Coins.text = "Coins: %s" % global.coins
 	
 	# Updates time counter
-	$Node/Time.text = "Time: %.2f" % global.raw_time
+	$Node/Time.text = "Time: %s" % global.get_readable_time()
 
 
 func _on_MenuPanel_event(button):
