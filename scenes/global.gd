@@ -3,6 +3,8 @@ extends Node
 
 # Game scenes preloading
 var home_prescene = preload("res://scenes/bllob/home.tscn")
+var main_menu_prescene = preload("res://scenes/GUI/main_menu.tscn")
+
 var dodger_prescene = preload("res://scenes/games/dodger_game.tscn")
 
 var active_scene
@@ -48,15 +50,14 @@ func _ready():
 	raw_time = game_data["raw_time"]
 	bllob_data = game_data["bllob_data"]
 	
-	# Brings up home screen by default
-	load_home()
+	# Loads the main menu
+	load_main_menu()
 
 
 func _notification(what):
 	# Runs when the game is quit
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		make_save()
-		get_tree().quit() # default behavior
+		quit_game()
 
 
 func _process(dt):
@@ -70,6 +71,14 @@ func _process(dt):
 # ================
 # Misc Functions
 # ================
+
+func quit_game():
+	"""
+	Saves and exits the game
+	"""
+	make_save()
+	get_tree().quit() # default behavior
+
 
 func load_names():
 	"""
@@ -251,7 +260,7 @@ func load_game(game):
 	Switches scene to run a game
 	"""
 	
-	remove_child(active_scene)
+	call_deferred("remove_child", active_scene)
 	
 	match game:
 		"dodger":
@@ -265,11 +274,24 @@ func load_home():
 	Loads the home screen
 	"""
 	
-	# This may be called with no other active scene
-	if active_scene:
-		call_deferred("remove_child", active_scene)
+	call_deferred("remove_child", active_scene)
 	
 	var home_scene = home_prescene.instance()
 	add_child(home_scene)
 	
 	active_scene = home_scene
+
+
+func load_main_menu():
+	"""
+	Loads the main menu
+	"""
+	
+	# This may be called with no other active scene
+	if active_scene:
+		call_deferred("remove_child", active_scene)
+	
+	var menu_scene = main_menu_prescene.instance()
+	add_child(menu_scene)
+	
+	active_scene = menu_scene
