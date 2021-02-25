@@ -26,3 +26,7 @@ func _on_PlayButton_pressed():
 	Loads the game home screne
 	"""
 	global.load_home()
+
+
+func _on_CreditsButton_pressed():
+	global.load_credits()

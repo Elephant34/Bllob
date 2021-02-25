@@ -295,3 +295,17 @@ func load_main_menu():
 	add_child(menu_scene)
 	
 	active_scene = menu_scene
+
+
+func load_credits():
+	"""
+	Loads the credits scene
+	"""
+
+	call_deferred("remove_child", active_scene)
+
+	var credits_prescene = load("res://scenes/GUI/credits.tscn")
+	var credits_scene = credits_prescene.instance()
+	add_child(credits_scene)
+
+	active_scene = credits_scene
