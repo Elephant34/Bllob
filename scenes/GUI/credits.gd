@@ -9,3 +9,7 @@ func _ready():
 
 func _on_MenuButton_pressed():
 	global.load_main_menu()
+
+
+func _on_Label_meta_clicked(meta):
+	OS.shell_open(meta);

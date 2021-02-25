@@ -209,6 +209,7 @@ margin_top = 9.0
 margin_right = 125.0
 margin_bottom = 30.0
 text = "Main Menu"
+[connection signal="meta_clicked" from="Label" to="." method="_on_Label_meta_clicked"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_MenuButton_pressed"]
 
 [editable path="MenuButton"]
